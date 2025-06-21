@@ -84,6 +84,16 @@ class Solution {
      */
     fun lengthOfLongestSubstring(s: String): Int {
         // TODO: Your implementation goes here
+        /*
+        Input : s = "abcabcbb"
+        Input : s = "a"
+        Input : s = "bbbbb"
+        Input : s = "pwwkew"
+
+        
+         */
+
+
         
         // Placeholder return - replace with your solution
         return 0
