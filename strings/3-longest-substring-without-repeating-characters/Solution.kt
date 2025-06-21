@@ -83,20 +83,44 @@ class Solution {
      * @return: Length of the longest substring without repeating characters
      */
     fun lengthOfLongestSubstring(s: String): Int {
-        // TODO: Your implementation goes here
-        /*
-        Input : s = "abcabcbb"
-        Input : s = "a"
-        Input : s = "bbbbb"
-        Input : s = "pwwkew"
-
+        // Edge case : Empty String
+         if(s.isEmpty()){
+            return 0
+         }
         
+        /* Possible inputs
+            "abcabcbb"
+            "au" 
+            " " 
+            ""
+            "dvdf"
+            "bbbbb"
+            "pwwkew"
          */
 
+         //Seen  = cab
 
-        
-        // Placeholder return - replace with your solution
-        return 0
+         val seen = mutableSetOf<Char>()
+         var maxLength = 0
+         var left = 0
+
+
+         for(right in s.indices){
+
+            while(s[right] in seen){
+                seen.remove(s[left])
+                left++
+            }
+
+            seen.add(s[right])
+
+            maxLength = maxOf(maxLength, right-left + 1)
+
+            
+
+         }
+
+         return maxLength
     }
 }
 
