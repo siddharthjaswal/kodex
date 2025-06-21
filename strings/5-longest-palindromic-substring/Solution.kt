@@ -66,8 +66,8 @@ fun main() {
     val result7 = solution.longestPalindrome(s7)
     println("Test Case 5 - Mixed Palindromes:")
     println("Input: s = \"$s7\"")
-    println("Output: \"$result7\" (Expected: \"racecar\")")
-    println("✅ ${if (result7 == "racecar") "PASS" else "FAIL"}")
+    println("Output: \"$result7\" (Expected: \"aca\")")
+    println("✅ ${if (result7 == "aca") "PASS" else "FAIL"}")
     println()
     
     println("=" * 45)
@@ -105,10 +105,30 @@ class Solution {
      * @return: The longest palindromic substring
      */
     fun longestPalindrome(s: String): String {
-        // TODO: Your implementation goes here
+        if (s.isEmpty()) return ""
         
-        // Placeholder return - replace with your solution
-        return ""
+        var start = 0
+        var maxLength = 1
+        
+        for (i in s.indices) {
+            // Check for odd length palindromes (center = i)
+            val len1 = expandAroundCenter(s, i, i)
+            
+            // Check for even length palindromes (center = i, i+1)
+            val len2 = expandAroundCenter(s, i, i + 1)
+            
+            // Get the maximum length palindrome centered at i
+            val currentMax = maxOf(len1, len2)
+            
+            // Update global maximum if current is longer
+            if (currentMax > maxLength) {
+                maxLength = currentMax
+                // Calculate start position of palindrome
+                start = i - (currentMax - 1) / 2
+            }
+        }
+        
+        return s.substring(start, start + maxLength)
     }
     
     /**
@@ -120,9 +140,18 @@ class Solution {
      * @param right: Right pointer/center  
      * @return: Palindrome string found by expanding around center
      */
-    private fun expandAroundCenter(s: String, left: Int, right: Int): String {
-        // TODO: Implement this helper if using expand around centers approach
-        return ""
+    private fun expandAroundCenter(s: String, left: Int, right: Int): Int {
+        var l = left
+        var r = right
+        
+        // Expand while characters match and within bounds
+        while (l >= 0 && r < s.length && s[l] == s[r]) {
+            l--
+            r++
+        }
+        
+        // Return length of palindrome
+        return r - l - 1
     }
     
     /**
